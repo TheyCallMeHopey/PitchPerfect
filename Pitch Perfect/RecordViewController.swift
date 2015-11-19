@@ -34,6 +34,7 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate
     {
         onAirLabel.hidden = true;
         stopButton.hidden = true;
+        recordingButton.hidden = false;
     }
     
     @IBAction func recordAudio(sender: UIButton)
