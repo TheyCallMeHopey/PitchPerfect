@@ -20,10 +20,25 @@ class PlayRecordingViewController: UIViewController
     {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        audioPlayer = try? AVAudioPlayer(contentsOfURL: receivedAudio.recordingFilePathURL);
-        audioPlayer.enableRate = true;
-        audioEngine = AVAudioEngine();
-        audioFile = try? AVAudioFile(forReading: receivedAudio.recordingFilePathURL);
+        do
+        {
+            audioPlayer = try AVAudioPlayer(contentsOfURL: receivedAudio.recordingFilePathURL);
+            audioPlayer.enableRate = true;
+            audioEngine = AVAudioEngine();
+            
+            do
+            {
+                audioFile = try AVAudioFile(forReading: receivedAudio.recordingFilePathURL);
+            }
+            catch
+            {
+                
+            }
+        }
+        catch let error as NSError
+        {
+            print("\(error.localizedDescription)");
+        }
     }
 
     override func didReceiveMemoryWarning()
@@ -32,21 +47,24 @@ class PlayRecordingViewController: UIViewController
         // Dispose of any resources that can be recreated.
     }
     
-    func speed(rate:Float)
+    func stopAudio()
     {
         audioEngine.stop();
         audioEngine.reset();
         audioPlayer.stop();
         audioPlayer.currentTime = 0;
+    }
+    
+    func speed(rate:Float)
+    {
+        stopAudio();
         audioPlayer.rate = rate;
         audioPlayer.play();
     }
     
     func pitch (thePitch:Float)
     {
-        audioPlayer.stop();
-        audioEngine.stop();
-        audioEngine.reset();
+        stopAudio();
         
         let audioPlayerNode = AVAudioPlayerNode();
         audioEngine.attachNode(audioPlayerNode);
@@ -86,10 +104,7 @@ class PlayRecordingViewController: UIViewController
     
     @IBAction func stopButton(sender: UIButton)
     {
-        audioPlayer.stop();
-        audioEngine.stop();
-        audioEngine.reset();
-        audioPlayer.currentTime = 0;
+        stopAudio();
     }
     
     
