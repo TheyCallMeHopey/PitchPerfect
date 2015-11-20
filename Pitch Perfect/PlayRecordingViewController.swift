@@ -34,6 +34,8 @@ class PlayRecordingViewController: UIViewController
     
     func speed(rate:Float)
     {
+        audioEngine.stop();
+        audioEngine.reset();
         audioPlayer.stop();
         audioPlayer.currentTime = 0;
         audioPlayer.rate = rate;
