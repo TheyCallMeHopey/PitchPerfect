@@ -57,11 +57,9 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate
             AVSampleRateKey: 44100.0]
         print(filePath);
         //Prep the recording session
-        //TODO: CHECK CODE
         let session = AVAudioSession.sharedInstance();
         do
         {
-            //try session.setCategory(AVAudioSessionCategoryPlayAndRecord)
             try session.setCategory(AVAudioSessionCategoryRecord);
             audioRecorder = try AVAudioRecorder(URL: filePath!, settings: recordSettings as! [String : AnyObject])
         }
@@ -79,7 +77,6 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate
     
     func audioRecorderDidFinishRecording(recorder: AVAudioRecorder, successfully flag: Bool)
     {
-        //TODO: CHECK CODE
         let session = AVAudioSession.sharedInstance();
         do
         {
@@ -89,8 +86,6 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate
         {
             print("Error");
         };
-        
-        
         
         if(flag)
         {
