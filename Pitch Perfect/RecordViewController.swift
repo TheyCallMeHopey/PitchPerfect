@@ -64,9 +64,7 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate
         {
             print("Error");
         };
-        //TO DO: What is wrong here?
-        //audioRecorder try! = AVAudioRecorder(URL: filePath!, settings: nil);
-
+        
         audioRecorder.delegate = self;
         audioRecorder.meteringEnabled = true;
         //Ready to record and starts recording
@@ -78,9 +76,7 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate
     {
         if(flag)
         {
-            recordedAudio = RecordedAudio();
-            recordedAudio.recordingFilePathURL = recorder.url;
-            recordedAudio.title = recorder.url.lastPathComponent;
+            recordedAudio = RecordedAudio (title: recorder.url.lastPathComponent!, recordingFilePathURL: recorder.url);
             
             self.performSegueWithIdentifier("stopRecording", sender: recordedAudio);
         }

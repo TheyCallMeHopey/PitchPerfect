@@ -6,10 +6,16 @@
 //  Copyright (c) 2015 Hope Elizabeth. All rights reserved.
 //
 
-import Foundation
+import Foundation;
 
-class RecordedAudio: NSObject
+class RecordedAudio
 {
-    var recordingFilePathURL: NSURL!
-    var title: String!
+    var title: String!;
+    var recordingFilePathURL: NSURL!;
+
+    init (title: String!, recordingFilePathURL: NSURL!)
+    {
+        self.title = title;
+        self.recordingFilePathURL = recordingFilePathURL;
+    }
 }
