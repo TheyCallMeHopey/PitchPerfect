@@ -43,16 +43,30 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate
         stopButton.hidden = false;
         
         //Set the path
-        var dirPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! String;
+        let dirPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] ;
         //Name the recording
         let recordingName = "recorded_audio.wav";
         let pathArray = [dirPath, recordingName];
         let filePath = NSURL.fileURLWithPathComponents(pathArray);
-        println(filePath);
+        let recordSettings = [AVEncoderAudioQualityKey: AVAudioQuality.Min.rawValue,
+            AVEncoderBitRateKey: 16,
+            AVNumberOfChannelsKey: 2,
+            AVSampleRateKey: 44100.0]
+        print(filePath);
         //Prep the recording session
-        var session = AVAudioSession.sharedInstance();
-        session.setCategory(AVAudioSessionCategoryPlayAndRecord, error: nil);
-        audioRecorder = AVAudioRecorder(URL: filePath, settings: nil, error: nil);
+        let session = AVAudioSession.sharedInstance();
+        do
+        {
+            try session.setCategory(AVAudioSessionCategoryPlayAndRecord)
+            audioRecorder = try AVAudioRecorder(URL: filePath!, settings: recordSettings as! [String : AnyObject])
+        }
+        catch _
+        {
+            print("Error");
+        };
+        //TO DO: What is wrong here?
+        //audioRecorder try! = AVAudioRecorder(URL: filePath!, settings: nil);
+
         audioRecorder.delegate = self;
         audioRecorder.meteringEnabled = true;
         //Ready to record and starts recording
@@ -60,7 +74,7 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate
         audioRecorder.record();
     }
     
-    func audioRecorderDidFinishRecording(recorder: AVAudioRecorder!, successfully flag: Bool)
+    func audioRecorderDidFinishRecording(recorder: AVAudioRecorder, successfully flag: Bool)
     {
         if(flag)
         {
@@ -72,7 +86,7 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate
         }
         else
         {
-            println("Recording was not successful");
+            print("Recording was not successful");
             recordingButton.enabled = true;
             stopButton.hidden = true;
         }
@@ -82,8 +96,8 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate
     {
         if(segue.identifier == "stopRecording")
         {
-            var playRecordingVC: PlayRecordingViewController = segue.destinationViewController as! PlayRecordingViewController;
-            var data = sender as! RecordedAudio;
+            let playRecordingVC: PlayRecordingViewController = segue.destinationViewController as! PlayRecordingViewController;
+            let data = sender as! RecordedAudio;
             playRecordingVC.receivedAudio = data;
         }
     }
@@ -97,7 +111,10 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate
         audioRecorder.stop();
         
         //Deactivate the audio session - the audio session is now over
-        var audioSession = AVAudioSession.sharedInstance();
-        audioSession.setActive(false, error: nil);
+        let audioSession = AVAudioSession.sharedInstance();
+        do {
+            try audioSession.setActive(false)
+        } catch _ {
+        };
     }
 }

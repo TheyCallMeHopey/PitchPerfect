@@ -20,10 +20,10 @@ class PlayRecordingViewController: UIViewController
     {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        audioPlayer = AVAudioPlayer(contentsOfURL: receivedAudio.recordingFilePathURL, error: nil);
+        audioPlayer = try? AVAudioPlayer(contentsOfURL: receivedAudio.recordingFilePathURL);
         audioPlayer.enableRate = true;
         audioEngine = AVAudioEngine();
-        audioFile = AVAudioFile(forReading: receivedAudio.recordingFilePathURL, error: nil);
+        audioFile = try? AVAudioFile(forReading: receivedAudio.recordingFilePathURL);
     }
 
     override func didReceiveMemoryWarning()
@@ -57,8 +57,8 @@ class PlayRecordingViewController: UIViewController
         audioEngine.connect(changePitchEffect, to: audioEngine.outputNode, format: nil);
         
         audioPlayerNode.scheduleFile(audioFile, atTime: nil, completionHandler: nil);
-        audioEngine.startAndReturnError(nil);
-        
+        try! audioEngine.start();
+
         audioPlayerNode.play();
     }
     
@@ -85,6 +85,8 @@ class PlayRecordingViewController: UIViewController
     @IBAction func stopButton(sender: UIButton)
     {
         audioPlayer.stop();
+        audioEngine.stop();
+        audioEngine.reset();
         audioPlayer.currentTime = 0;
     }
     
