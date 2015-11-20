@@ -49,6 +49,21 @@
                                     <action selector="stopRecording:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="Hcb-9W-OHf"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="headTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B55-MZ-R8g">
+                                <rect key="frame" x="-42" y="-21" width="42" height="21"/>
+                                <attributedString key="attributedText">
+                                    <fragment content="TAP TO RECORD">
+                                        <attributes>
+                                            <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <font key="NSFont" size="17" name="HelveticaNeue-Light"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
+                                <nil key="highlightedColor"/>
+                                <variation key="widthClass=compact" misplaced="YES">
+                                    <rect key="frame" x="142" y="421" width="139" height="21"/>
+                                </variation>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -62,9 +77,11 @@
                             <constraint firstItem="tHy-fH-bpI" firstAttribute="centerX" secondItem="9Iw-jG-N1b" secondAttribute="centerX" constant="1.5" id="KJR-p3-7YU" userLabel="RecordingButton: Center X OnAirLabel">
                                 <variation key="widthClass=compact" constant="3.5"/>
                             </constraint>
+                            <constraint firstItem="B55-MZ-R8g" firstAttribute="top" secondItem="tHy-fH-bpI" secondAttribute="bottom" constant="16" id="RbB-K0-RhV" userLabel="TapToRecordLabel: Top"/>
                             <constraint firstAttribute="centerY" secondItem="9Iw-jG-N1b" secondAttribute="centerY" constant="159" id="eI7-Oe-hPN" userLabel="OnAirLabel: Center Y">
                                 <variation key="widthClass=compact" constant="162.5"/>
                             </constraint>
+                            <constraint firstItem="B55-MZ-R8g" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="ee0-uy-8Li" userLabel="TapToRecordLabel: Center X"/>
                             <constraint firstAttribute="centerY" secondItem="tHy-fH-bpI" secondAttribute="centerY" constant="12" id="jyz-Vm-Ssd" userLabel="RecordingButton: Center Y OnAirLabel"/>
                             <constraint firstItem="9rm-mx-MoH" firstAttribute="top" secondItem="tHy-fH-bpI" secondAttribute="bottom" constant="19" id="y02-hm-tQA" userLabel="StopButton: TopRecordingButton">
                                 <variation key="widthClass=compact" constant="16"/>
@@ -75,14 +92,17 @@
                                 <exclude reference="tHy-fH-bpI"/>
                                 <exclude reference="9Iw-jG-N1b"/>
                                 <exclude reference="9rm-mx-MoH"/>
+                                <exclude reference="B55-MZ-R8g"/>
                             </mask>
                             <mask key="constraints">
                                 <exclude reference="6TH-gf-ulx"/>
                                 <exclude reference="eI7-Oe-hPN"/>
-                                <exclude reference="y02-hm-tQA"/>
                                 <exclude reference="EH5-Vb-6Fo"/>
                                 <exclude reference="KJR-p3-7YU"/>
                                 <exclude reference="jyz-Vm-Ssd"/>
+                                <exclude reference="RbB-K0-RhV"/>
+                                <exclude reference="ee0-uy-8Li"/>
+                                <exclude reference="y02-hm-tQA"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
@@ -90,14 +110,17 @@
                                 <include reference="tHy-fH-bpI"/>
                                 <include reference="9Iw-jG-N1b"/>
                                 <include reference="9rm-mx-MoH"/>
+                                <include reference="B55-MZ-R8g"/>
                             </mask>
                             <mask key="constraints">
                                 <include reference="6TH-gf-ulx"/>
                                 <include reference="eI7-Oe-hPN"/>
-                                <include reference="y02-hm-tQA"/>
                                 <include reference="EH5-Vb-6Fo"/>
                                 <include reference="KJR-p3-7YU"/>
                                 <include reference="jyz-Vm-Ssd"/>
+                                <include reference="RbB-K0-RhV"/>
+                                <include reference="ee0-uy-8Li"/>
+                                <include reference="y02-hm-tQA"/>
                             </mask>
                         </variation>
                     </view>
@@ -108,6 +131,7 @@
                         <outlet property="onAirLabel" destination="9Iw-jG-N1b" id="MIX-dT-xCR"/>
                         <outlet property="recordingButton" destination="tHy-fH-bpI" id="0cI-s6-4Tg"/>
                         <outlet property="stopButton" destination="9rm-mx-MoH" id="sic-YS-ebl"/>
+                        <outlet property="tapToRecordLabel" destination="B55-MZ-R8g" id="du5-SD-Kk0"/>
                         <segue destination="3Gt-2v-Oor" kind="show" identifier="stopRecording" id="kMi-dL-Qqn"/>
                     </connections>
                 </viewController>

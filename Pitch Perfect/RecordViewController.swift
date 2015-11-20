@@ -15,6 +15,7 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate
     var recordedAudio: RecordedAudio!
     
     @IBOutlet weak var onAirLabel: UILabel!
+    @IBOutlet weak var tapToRecordLabel: UILabel!
     @IBOutlet weak var stopButton: UIButton!
     @IBOutlet weak var recordingButton: UIButton!
     
@@ -35,12 +36,14 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate
         onAirLabel.hidden = true;
         stopButton.hidden = true;
         recordingButton.hidden = false;
+        tapToRecordLabel.hidden = false;
     }
     
     @IBAction func recordAudio(sender: UIButton)
     {
         onAirLabel.hidden = false;
         stopButton.hidden = false;
+        tapToRecordLabel.hidden = true;
         
         //Set the path
         let dirPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] ;
@@ -103,6 +106,7 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate
         onAirLabel.hidden = true;
         stopButton.hidden = true;
         recordingButton.hidden = true;
+        tapToRecordLabel.hidden = true;
         
         audioRecorder.stop();
         
