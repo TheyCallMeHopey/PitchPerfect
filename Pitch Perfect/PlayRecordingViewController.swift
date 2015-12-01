@@ -19,7 +19,7 @@ class PlayRecordingViewController: UIViewController
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+
         do
         {
             audioPlayer = try AVAudioPlayer(contentsOfURL: receivedAudio.recordingFilePathURL);
@@ -44,7 +44,6 @@ class PlayRecordingViewController: UIViewController
     override func didReceiveMemoryWarning()
     {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     func stopAudio()
